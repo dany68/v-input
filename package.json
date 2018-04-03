@@ -1,0 +1,8 @@
+{
+  "name": "v-input",
+  "version": "0.0.0",
+  "description": "An input and textarea component for Vue.js 2",
+  "main": "src/index.js",
+  "author": "Daniel Elmalem <delmalem697@gmail.com>",
+  "private": true
+}

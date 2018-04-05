@@ -1,6 +1,6 @@
 <template lang="html">
     <div class="v-input">
-        <div class="input-box" :class="inputBoxClasses">
+        <div :class="inputBoxClasses">
 
             <div v-if="$slots.leftAddon" class="input-left-addon">
                 <slot name="leftAddon"></slot>
@@ -119,14 +119,16 @@ export default {
 
     computed: {
         /**
-         * Classes to be output on .input-box
+         * Classes to be output on the input box div.
          */
         inputBoxClasses() {
-            return {
-                'has-' + this.feedback.type: this.feedback && this.feedback.hasOwnProperty('type'),
-                'has-help': this.feedback && this.feedback.hasOwnProperty('text'),
-                'is-focus': this.isFocus
+            let classes = ['input-box'];
+            if (this.feedback) {
+                if (this.feedback.hasOwnProperty('type')) classes.push('has-' + this.feedback.type);
+                if (this.feedback.hasOwnProperty('text')) classes.push('has-help');
             }
+            if (this.isFocus) classes.push('is-focus');
+            return classes;
         },
 
         /**
@@ -145,7 +147,7 @@ export default {
          * @return {string}
          */
         placeholderText() {
-            return this.placeholder || `Enter your ${this.label}`;
+            return this.placeholder || `Enter your ${this.label}`;
         }
     },
 

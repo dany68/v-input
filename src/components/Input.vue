@@ -126,6 +126,8 @@ export default {
             if (this.feedback) {
                 if (this.feedback.hasOwnProperty('type')) classes.push('has-' + this.feedback.type);
                 if (this.feedback.hasOwnProperty('text')) classes.push('has-help');
+
+                classes.push('has-feedback');
             }
             if (this.isFocus) classes.push('is-focus');
             return classes;

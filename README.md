@@ -59,7 +59,7 @@ The value is synchronized with the `v-model` attribute.
 ## Textarea
 
 To render a textarea instead of an input, set the type option to `textarea`.
-If you want to resize the height of the textarea automatically based on the content height add the `autoresize="true"` attribute to the v-input tag.
+If you want to resize the height of the textarea automatically based on the content height add the `:autoresize="true"` attribute to the v-input tag.
 
 ## Feedback
 

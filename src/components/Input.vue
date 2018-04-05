@@ -1,18 +1,19 @@
 <template lang="html">
     <div class="v-input">
-        <div :class="inputClasses">
+        <div class="input-box" :class="inputBoxClasses">
 
             <div v-if="$slots.leftAddon" class="input-left-addon">
                 <slot name="leftAddon"></slot>
             </div>
 
-            <div :class="fieldClasses" @click="$refs.input.focus()">
+            <div class="field" :class="fieldClasses" @click="$refs.input.focus()">
 
                 <i v-if="icon" class="input-icon" :class="icon"></i>
 
                 <textarea
                 v-if="type == 'textarea'"
                 ref="input"
+                :name="name"
                 :value="value"
                 :placeholder="placeholderText"
                 @input="updateValue($event.target.value);autoresizeTextarea()"
@@ -23,6 +24,7 @@
                 <input
                 v-else
                 ref="input"
+                :name="name"
                 :type="type"
                 :value="value"
                 :placeholder="placeholderText"
@@ -48,7 +50,7 @@
 export default {
     props: {
         /**
-         * HTML input type attribute.
+         * The HTML input type attribute.
          */
         type: {
             type: String,
@@ -56,7 +58,15 @@ export default {
         },
 
         /**
-         * The label text.
+         * The input name attribute.
+         */
+        name: {
+            type: String
+        },
+
+        /**
+         * If set will add a label.
+         * The value will be the label text.
          */
         label: {
             type: String
@@ -70,7 +80,8 @@ export default {
         },
 
         /**
-         * Class of the input icon.
+         * If set will add an <i> tag and
+         * bind this icon prop to the <i> class attribute.
          */
         icon: {
             type: String
@@ -85,7 +96,7 @@ export default {
         },
 
         /**
-         * Used to bind the value with v-model
+         * Used to bind the value with v-model.
          */
         value: {
             type: String
@@ -108,31 +119,25 @@ export default {
 
     computed: {
         /**
-         * Classes applied to the input box div.
-         * @return {array}
+         * Classes to be output on .input-box
          */
-        inputClasses() {
-            let classes = ['input-box'];
-
-            if (this.feedback) {
-                if (this.feedback.hasOwnProperty('type')) classes.push('has-' + this.feedback.type);
-                if (this.feedback.hasOwnProperty('text')) classes.push('has-help');
+        inputBoxClasses() {
+            return {
+                'has-' + this.feedback.type: this.feedback && this.feedback.hasOwnProperty('type'),
+                'has-help': this.feedback && this.feedback.hasOwnProperty('text'),
+                'is-focus': this.isFocus
             }
-
-            if (this.isFocus) classes.push('is-focus');
-
-            return classes;
         },
 
         /**
-         * Classes applied to the field div
-         * @return {array}
+         * Classes to be output on .field
          */
         fieldClasses() {
-            let classes = ['field'];
-            if (this.label) classes.push('has-label');
-            if (this.icon) classes.push('has-icon');
-            return classes;
+            return {
+                'has-label': this.label,
+                'has-icon': this.icon,
+                'is-textarea': this.type == 'textarea'
+            }
         },
 
         /**
@@ -146,7 +151,7 @@ export default {
 
     methods: {
         /**
-        * Emit an input event up to the parent
+        * Emit an input event up to the parent.
         */
         updateValue(value) {
             this.$emit('input', value);

@@ -47,26 +47,27 @@ The value is synchronized with the `v-model` attribute.
 
 #### Options
 
-| Prop        | Type   | Default | Required | Description                     |
-| ----------- |:------:|:-------:|:--------:|:-------------------------------:|
-| type        | String | text    | No       | The HTML input type             |
-| label       | String |         | No       | Add a floating label            |
-| icon        | String |         | No       | Name of the icon to display     |
-| placeholder | String |         | No       | The input placeholder           |
-| feedback    | Object |         | No       | See the feedback section below  |
+| Prop        |  Type  | Default | Required |                        Description                         |
+| ----------- | ------ | ------- | -------- | ---------------------------------------------------------- |
+| type        | String |  text   |    No    |               The HTML input type attribute.               |
+| name        | String |         |    No    |                 The input name attribute.                  |
+| label       | String |         |    No    | If set will add a label. The value will be the label text. |
+| icon        | String |         |    No    |    Classes of the icon to display (ex: 'fas fa-globe').    |
+| placeholder | String |         |    No    |                The input placeholder text.                 |
+| feedback    | Object |         |    No    |              See the feedback section below.               |
 
 ## Textarea
 
 To render a textarea instead of an input, set the type option to `textarea`.
-If you want to resize the height of the textarea automatically based on the content height add the `autoresize="true"` prop attribute.
+If you want to resize the height of the textarea automatically based on the content height add the `autoresize="true"` attribute to the <v-input> tag.
 
 ## Feedback
 
 The feedback prop is useful to render a validation message and style the input accordingly.
 ```js
 {
-    type: 'error',
-    text: 'This pseudo already exists' // Optional
+    type: 'error', // Will add a .has-error class on .input-box.
+    text: 'This pseudo already exists' // Optional to display a validation message.
 }
 ```
 
@@ -77,7 +78,7 @@ It's useful if you want to display a button, a select dropdown, or whatever you 
 
 ```html
 <v-input v-model="search">
-    <v-select slot="leftAddon" v-model="filter" :options="['news', 'users']"></v-select>
+    <v-select slot="leftAddon" v-model="filter" :options="options"></v-select>
     <button slot="rightAddon" class="btn">Search</button>
 </v-input>
 ```
@@ -85,4 +86,4 @@ It's useful if you want to display a button, a select dropdown, or whatever you 
 ## Notes
 
 This package doesn't include CSS styles.
-You can either use the [Elements CSS framework](https://github.com/dany68/elements) or simply grab the [input scss file](https://github.com/dany68/elements/tree/master/sass/form/input.scss) from it.
+You can either use the [Elements CSS framework](https://github.com/dany68/elements) or simply grab the [input scss file](https://github.com/dany68/elements/blob/master/sass/components/forms/input.scss) from it.

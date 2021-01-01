@@ -42,7 +42,8 @@
             </div>
         </div>
 
-        <div v-if="feedback && feedback.text" class="input-help">{{ feedback.text }}</div>
+        <div v-if="help && !error" class="input-help">{{ help }}</div>
+        <div v-if="error" class="input-help">{{ error }}</div>
     </div>
 </template>
 
@@ -88,11 +89,18 @@ export default {
         },
 
         /**
-         * Object to render a validation message
+         * Display a help message under the input
+         */
+        help: {
+            type: String
+        },
+
+        /**
+         * Display an error message
          * and applied a theme to the input accordingly.
          */
-        feedback: {
-            type: Object
+        error: {
+            type: String
         },
 
         /**
@@ -123,12 +131,7 @@ export default {
          */
         inputBoxClasses() {
             let classes = ['input-box'];
-            if (this.feedback) {
-                if (this.feedback.hasOwnProperty('type')) classes.push('has-' + this.feedback.type);
-                if (this.feedback.hasOwnProperty('text')) classes.push('has-help');
-
-                classes.push('has-feedback');
-            }
+            if (this.error) classes.push('has-error');
             if (this.isFocus) classes.push('is-focus');
             return classes;
         },
